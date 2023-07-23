@@ -46,4 +46,29 @@ public class PessoaService {
 
         return pessoa;
     }
+
+    public List<PessoaDTO> listarPessoaComEndereco() {
+
+        List<Pessoa> pessoas = pessoaRepository.findAll();
+        List<PessoaDTO> pessoasDTO = new ArrayList<>();
+
+        for (Pessoa pessoa : pessoas) {
+            PessoaDTO pessoaDTO = new PessoaDTO();
+            pessoaDTO.setNome(pessoa.getNome());
+
+            List<EnderecoDTO> enderecoDTOS = new ArrayList<>();
+            for (Endereco endereco : pessoa.getEnderecos()) {
+                EnderecoDTO enderecoDTO = new EnderecoDTO();
+                enderecoDTO.setRua(endereco.getRua());
+                enderecoDTO.setNumero(endereco.getNumero());
+                enderecoDTO.setCidade(endereco.getCidade());
+                enderecoDTOS.add(enderecoDTO);
+            }
+
+            pessoaDTO.setEnderecos(enderecoDTOS);
+            pessoasDTO.add(pessoaDTO);
+        }
+
+        return pessoasDTO;
+    }
 }
