@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PessoaService {
@@ -70,5 +71,30 @@ public class PessoaService {
         }
 
         return pessoasDTO;
+    }
+
+    public PessoaDTO pegarPessoaComEndereco(Long id) {
+
+        Optional<Pessoa> pessoaOptional = pessoaRepository.findById(id);
+
+        if (pessoaOptional.isPresent()) {
+            Pessoa pessoa = pessoaOptional.get();
+            PessoaDTO pessoaDTO = new PessoaDTO();
+            pessoaDTO.setNome(pessoa.getNome());
+
+            List<EnderecoDTO> enderecoDTOS = new ArrayList<>();
+            for (Endereco endereco : pessoa.getEnderecos()) {
+                EnderecoDTO enderecoDTO = new EnderecoDTO();
+                enderecoDTO.setRua(endereco.getRua());
+                enderecoDTO.setNumero(endereco.getNumero());
+                enderecoDTO.setCidade(endereco.getCidade());
+                enderecoDTOS.add(enderecoDTO);
+            }
+
+            pessoaDTO.setEnderecos(enderecoDTOS);
+            return pessoaDTO;
+        }
+
+        return null;
     }
 }

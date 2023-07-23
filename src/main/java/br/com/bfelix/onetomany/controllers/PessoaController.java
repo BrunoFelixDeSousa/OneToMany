@@ -37,4 +37,12 @@ public class PessoaController {
         return ResponseEntity.status(HttpStatus.OK).body(pessoasDTO);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PessoaDTO> pegarPessoa(@PathVariable("id") Long id) {
+
+        PessoaDTO pessoaDTO = pessoaService.pegarPessoaComEndereco(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaDTO);
+    }
+
 }
