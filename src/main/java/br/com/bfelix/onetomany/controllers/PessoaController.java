@@ -45,4 +45,17 @@ public class PessoaController {
         return ResponseEntity.status(HttpStatus.OK).body(pessoaDTO);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletarPessoa(@PathVariable("id") Long id) {
+
+        boolean deletado = pessoaService.deletarPessoaComEndereco(id);
+
+        if (deletado) {
+            return ResponseEntity.status(HttpStatus.OK).body("Pessoa deletado");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa não encontrado");
+        }
+    }
+
+
 }
