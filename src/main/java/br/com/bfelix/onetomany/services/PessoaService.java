@@ -109,4 +109,33 @@ public class PessoaService {
         }
         return false;
     }
+
+    public boolean atualizarPessoaComEndereco(Long id, PessoaDTO pessoaDTO) {
+
+        Optional<Pessoa> pessoaOptional = pessoaRepository.findById(id);
+
+        if (pessoaOptional.isPresent()) {
+            Pessoa pessoa = pessoaOptional.get();
+            pessoa.setNome(pessoaDTO.getNome());
+
+            List<EnderecoDTO> enderecoDTOS = pessoaDTO.getEnderecos();
+            List<Endereco> enderecos = new ArrayList<>();
+
+            if (enderecoDTOS != null) {
+                for (EnderecoDTO enderecoDTO : enderecoDTOS) {
+                    Endereco endereco = new Endereco();
+                    endereco.setRua(enderecoDTO.getRua());
+                    endereco.setNumero(enderecoDTO.getNumero());
+                    endereco.setCidade(enderecoDTO.getCidade());
+                    enderecos.add(endereco);
+                }
+            }
+
+            pessoa.setEnderecos(enderecos);
+            pessoaRepository.save(pessoa);
+            return true;
+        }
+
+        return false;
+    }
 }

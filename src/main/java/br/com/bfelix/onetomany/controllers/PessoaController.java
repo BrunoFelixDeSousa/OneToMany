@@ -57,5 +57,17 @@ public class PessoaController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> atualizarPessoa(@PathVariable("id") Long id, @RequestBody PessoaDTO pessoaDTO) {
+
+        boolean atualizado = pessoaService.atualizarPessoaComEndereco(id, pessoaDTO);
+
+        if (atualizado) {
+            return ResponseEntity.status(HttpStatus.OK).body("Pessoa atualizado");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa não encontrado");
+        }
+    }
+
 
 }

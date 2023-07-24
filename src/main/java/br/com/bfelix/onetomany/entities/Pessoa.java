@@ -21,7 +21,7 @@ public class Pessoa {
     private String nome;
 
     // Relacionamento bidirecional com a entidade "Endereco"
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL /*orphanRemoval = */)
     @JoinColumn(name = "pessoa_id")
     private List<Endereco> enderecos = new ArrayList<>();
 
