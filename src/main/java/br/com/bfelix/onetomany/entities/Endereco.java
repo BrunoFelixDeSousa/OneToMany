@@ -20,7 +20,7 @@ public class Endereco {
     private String cidade;
 
     // Relacionamento bidirecional com a entidade "Pessoa"
-//    @ManyToOne
-//    @JoinColumn(name = "pessoa_id")
-//    private Pessoa pessoa;
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
 }
